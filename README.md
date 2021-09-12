@@ -32,4 +32,5 @@ A DataFrame that shows the receipt in txt file and the price you get.
 * oops, unfortunate.  
 ![擷取](https://user-images.githubusercontent.com/78197510/131346146-a4ab8833-cfdd-4a44-8ed3-52cf8a531e5a.PNG)  
   
-Michael Hsueh 09/07/2021
+## License
+[MIT](LICENSE) © Tsuen Hsueh
