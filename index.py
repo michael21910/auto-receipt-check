@@ -11,7 +11,7 @@ info = []
 # function here, read the txt file, it includes the user's receipt numbers
 user_list = []
 def read_file():
-    with open('receipt.txt') as file:
+    with open('materials/receipt.txt') as file:
         user = file.read().split('\n')
     return user
 
@@ -20,20 +20,12 @@ def find_prize_number():
     html = requests.get('https://invoice.etax.nat.gov.tw/')
     html.encoding = "utf-8"
     sp = BeautifulSoup(html.text, 'lxml')
-    numbers = sp.find_all('span', 't18Red')
-
-    count = 0
-    number_list = []; temp = []
-    for number in numbers:
-        if(count == 2):
-            temp = number.text.split('、')
-            for numbers_temp in temp:
-                number_list.append(numbers_temp)
-        else:
-            number_list.append(number.text)
-        if(count == 3):
-            return number_list
-        count += 1
+    numbers_list = sp.find_all('p', 'etw-tbiggest')
+    for i in range(len(numbers_list)):
+        numbers_list[i] = numbers_list[i].text.strip('\n')
+    numbers_list = numbers_list[0:6]
+    # print(numbers_list)
+    return numbers_list
 
 # function here, detect the user's input to determine if there is a winning
 def isCorrect_input(user_list):
@@ -97,4 +89,4 @@ isCorrect_input(user_list)
 output = pd.DataFrame(info, columns = ['Your receipt number', 'The price you get'])
 output = output.sort_values(['The price you get'], ascending = false)
 output.index = [i + 1 for i in range(len(output))]
-print(output) # display(output)
+display(output)
